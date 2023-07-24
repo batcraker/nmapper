@@ -1,0 +1,49 @@
+# Nmap 7.93 scan initiated Wed Jun 28 10:18:42 2023 as: nmap -sV -p 1-65535 -T4 -O -v -v -oA WILLIAM-EHI-SHARED --max-rtt-timeout 1500ms --max-scan-delay 5 --min-rate 4500 --max-retries 2 -Pn 10.197.166.10 10.197.166.57 10.197.166.11 10.197.166.91 10.197.166.78 10.197.166.12 10.197.166.13 10.197.166.14 10.197.166.49 10.197.166.20 sh-elastic-cache-sb1.8fbmnd.ng.0001.euw1.cache.amazonaws.com sh-elastic-cache-sb2.8fbmnd.ng.0001.euw1.cache.amazonaws.com sh-elastic-cache-gp1.8fbmnd.ng.0001.euw1.cache.amazonaws.com sh-elastic-cache-gp2.8fbmnd.ng.0001.euw1.cache.amazonaws.com vpc-sh-elastic-search-2-ujhd2njz3fldyh652vpyayyuk4.eu-west-1.es.amazonaws.com 10.197.166.30 10.197.166.94 10.197.166.15 10.197.166.116 10.197.166.229 10.197.166.136 10.197.166.250 10.197.166.40
+# Ports scanned: TCP(65535;1-65535) UDP(0;) SCTP(0;) PROTOCOLS(0;)
+Host: 10.197.166.10 (10.197.166.10)	Status: Up
+Host: 10.197.166.10 (10.197.166.10)	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.57 ()	Status: Up
+Host: 10.197.166.57 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.11 ()	Status: Up
+Host: 10.197.166.11 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.91 (10.197.166.91)	Status: Up
+Host: 10.197.166.91 (10.197.166.91)	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.78 ()	Status: Up
+Host: 10.197.166.78 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.12 ()	Status: Up
+Host: 10.197.166.12 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.13 (10.197.166.13)	Status: Up
+Host: 10.197.166.13 (10.197.166.13)	Ports: 135/open/tcp//msrpc//Microsoft Windows RPC/, 139/open/tcp//netbios-ssn//Microsoft Windows netbios-ssn/, 445/open/tcp//microsoft-ds?///, 492/filtered/tcp//ticf-1///, 1644/filtered/tcp//saiseh///, 1892/filtered/tcp//childkey-ctrl///, 3389/open/tcp//ms-wbt-server//Microsoft Terminal Services/, 4118/open/tcp//ssl|netscript?///, 5985/open/tcp//http//Microsoft HTTPAPI httpd 2.0 (SSDP|UPnP)/, 7574/filtered/tcp//coherence///, 7990/filtered/tcp/////, 8909/filtered/tcp/////, 10050/open/tcp//tcpwrapped///, 11972/filtered/tcp/////, 12830/filtered/tcp/////, 13082/filtered/tcp/////, 14095/filtered/tcp/////, 14174/filtered/tcp/////, 14752/filtered/tcp/////, 16201/filtered/tcp/////, 17682/filtered/tcp/////, 18028/filtered/tcp/////, 18114/filtered/tcp/////, 18401/filtered/tcp/////, 18864/filtered/tcp/////, 21051/filtered/tcp/////, 21939/filtered/tcp/////, 21942/filtered/tcp/////, 25134/filtered/tcp/////, 26179/filtered/tcp/////, 27486/filtered/tcp/////, 29405/filtered/tcp/////, 29634/filtered/tcp/////, 30982/filtered/tcp/////, 32188/filtered/tcp/////, 33235/filtered/tcp/////, 33482/filtered/tcp/////, 36921/filtered/tcp/////, 37203/filtered/tcp/////, 37603/filtered/tcp/////, 37736/filtered/tcp/////, 40159/filtered/tcp/////, 45895/filtered/tcp/////, 45990/filtered/tcp/////, 46319/filtered/tcp/////, 47001/open/tcp//http//Microsoft HTTPAPI httpd 2.0 (SSDP|UPnP)/, 48298/filtered/tcp/////, 48806/filtered/tcp/////, 49664/open/tcp//msrpc//Microsoft Windows RPC/, 49665/open/tcp//msrpc//Microsoft Windows RPC/, 49666/open/tcp//msrpc//Microsoft Windows RPC/, 49687/open/tcp//msrpc//Microsoft Windows RPC/, 49696/open/tcp//msrpc//Microsoft Windows RPC/, 49708/open/tcp//msrpc//Microsoft Windows RPC/, 50760/open/tcp//msrpc//Microsoft Windows RPC/, 52127/filtered/tcp/////, 52394/filtered/tcp/////, 54254/filtered/tcp/////, 54650/filtered/tcp/////, 54842/filtered/tcp/////, 56057/filtered/tcp/////, 57129/filtered/tcp/////, 58450/filtered/tcp/////, 58576/filtered/tcp/////, 60717/filtered/tcp/////, 61804/filtered/tcp/////, 61925/filtered/tcp/////, 63835/filtered/tcp/////, 64497/filtered/tcp/////, 65198/filtered/tcp/////	Ignored State: closed (65465)	Seq Index: 261	IP ID Seq: Incremental
+Host: 10.197.166.14 ()	Status: Up
+Host: 10.197.166.14 ()	Ports: 80/open/tcp//http//Microsoft HTTPAPI httpd 2.0 (SSDP|UPnP)/, 135/open/tcp//msrpc//Microsoft Windows RPC/, 139/open/tcp//netbios-ssn//Microsoft Windows netbios-ssn/, 445/open/tcp//microsoft-ds?///, 492/filtered/tcp//ticf-1///, 1644/filtered/tcp//saiseh///, 1801/open/tcp//msmq?///, 1892/filtered/tcp//childkey-ctrl///, 2103/open/tcp//msrpc//Microsoft Windows RPC/, 2105/open/tcp//msrpc//Microsoft Windows RPC/, 2107/open/tcp//msrpc//Microsoft Windows RPC/, 3389/open/tcp//ms-wbt-server//Microsoft Terminal Services/, 4118/open/tcp//ssl|netscript?///, 5985/open/tcp//http//Microsoft HTTPAPI httpd 2.0 (SSDP|UPnP)/, 7574/filtered/tcp//coherence///, 7990/filtered/tcp/////, 8172/open/tcp//ssl|http//Microsoft IIS httpd 10.0/, 8909/filtered/tcp/////, 9017/open/tcp//http//Microsoft IIS httpd 10.0/, 9025/open/tcp//http//Microsoft IIS httpd 10.0/, 9090/open/tcp//http//Microsoft IIS httpd 10.0/, 10050/open/tcp//zabbix-agent?///, 11972/filtered/tcp/////, 13082/filtered/tcp/////, 14095/filtered/tcp/////, 14174/filtered/tcp/////, 14752/filtered/tcp/////, 16201/filtered/tcp/////, 17682/filtered/tcp/////, 18028/filtered/tcp/////, 18114/filtered/tcp/////, 18401/filtered/tcp/////, 18864/filtered/tcp/////, 21051/filtered/tcp/////, 21942/filtered/tcp/////, 25134/filtered/tcp/////, 26179/filtered/tcp/////, 27486/filtered/tcp/////, 29405/filtered/tcp/////, 29634/filtered/tcp/////, 30982/filtered/tcp/////, 32188/filtered/tcp/////, 33235/filtered/tcp/////, 33482/filtered/tcp/////, 36921/filtered/tcp/////, 37203/filtered/tcp/////, 37603/filtered/tcp/////, 37736/filtered/tcp/////, 40159/filtered/tcp/////, 45895/filtered/tcp/////, 45990/filtered/tcp/////, 46319/filtered/tcp/////, 47001/open/tcp//http//Microsoft HTTPAPI httpd 2.0 (SSDP|UPnP)/, 48298/filtered/tcp/////, 48806/filtered/tcp/////, 49664/open/tcp//msrpc//Microsoft Windows RPC/, 49665/open/tcp//msrpc//Microsoft Windows RPC/, 49666/open/tcp//msrpc//Microsoft Windows RPC/, 49667/open/tcp//msrpc//Microsoft Windows RPC/, 49686/open/tcp//msrpc//Microsoft Windows RPC/, 49694/open/tcp//msrpc//Microsoft Windows RPC/, 49699/open/tcp//msrpc//Microsoft Windows RPC/, 49713/open/tcp//msrpc//Microsoft Windows RPC/, 49885/open/tcp//msrpc//Microsoft Windows RPC/, 52127/filtered/tcp/////, 52394/filtered/tcp/////, 54254/filtered/tcp/////, 54650/filtered/tcp/////, 56057/filtered/tcp/////, 57129/filtered/tcp/////, 58450/filtered/tcp/////, 58576/filtered/tcp/////, 60717/filtered/tcp/////, 61804/filtered/tcp/////, 61925/filtered/tcp/////, 63835/filtered/tcp/////, 64497/filtered/tcp/////, 65198/filtered/tcp/////	Ignored State: closed (65457)	Seq Index: 252	IP ID Seq: Incremental
+Host: 10.197.166.49 ()	Status: Up
+Host: 10.197.166.49 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.20 (10.197.166.20)	Status: Up
+Host: 10.197.166.20 (10.197.166.20)	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.66.104 ()	Status: Up
+Host: 10.197.66.104 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.165 ()	Status: Up
+Host: 10.197.166.165 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.98 (10.197.166.98)	Status: Up
+Host: 10.197.166.98 (10.197.166.98)	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.100.174 ()	Status: Up
+Host: 10.197.100.174 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.30 ()	Status: Up
+Host: 10.197.166.30 ()	Ports: 135/open/tcp//msrpc//Microsoft Windows RPC/, 139/open/tcp//netbios-ssn//Microsoft Windows netbios-ssn/, 445/open/tcp//microsoft-ds?///, 3389/open/tcp//ms-wbt-server//Microsoft Terminal Services/, 49666/open/tcp/////, 49692/open/tcp/////, 58628/open/tcp/////	Seq Index: 259	IP ID Seq: Incremental
+Host: 10.197.166.94 (10.197.166.94)	Status: Up
+Host: 10.197.166.94 (10.197.166.94)	Ports: 22/open/tcp//ssh//OpenSSH 7.6p1 Ubuntu 4ubuntu0.3 (Ubuntu Linux; protocol 2.0)/	Seq Index: 249	IP ID Seq: All zeros
+Host: 10.197.166.15 ()	Status: Up
+Host: 10.197.166.15 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.116 ()	Status: Up
+Host: 10.197.166.116 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.229 (10.197.166.229)	Status: Up
+Host: 10.197.166.229 (10.197.166.229)	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.136 ()	Status: Up
+Host: 10.197.166.136 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.250 ()	Status: Up
+Host: 10.197.166.250 ()	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.40 (10.197.166.40)	Status: Up
+Host: 10.197.166.40 (10.197.166.40)	Ports: 	Ignored State: filtered (65535)
+Host: 10.197.166.20 (10.197.166.20)	Status: Up
+Host: 10.197.166.20 (10.197.166.20)	Ports: 6379/open/tcp//redis//Redis key-value store 5.0.6/	Ignored State: filtered (65534)	Seq Index: 261	IP ID Seq: All zeros
+# Nmap done at Wed Jun 28 10:32:43 2023 -- 23 IP addresses (23 hosts up) scanned in 841.50 seconds

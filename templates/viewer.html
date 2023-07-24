@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nmapper.css') }}">
+    <title>Nmapper</title>
+</head>
+<body>
+    <div class="container">
+        <a href="/" class="btn-link">
+            <button class="btn btn-success">Go to the index page</button>
+        </a>
+        <div class="scann">
+            <p> {{ data.scann }} </p>
+            <br>
+        </div>
+        <div class="container-host">
+            {% for host in data.hosts %}
+                <div class="host-container">
+                    <h3 class="address">{{ host.address }}</h3>
+                    <p class="hostname">{{ host.hostname }}</p>
+                    <div class="table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Port</th>
+                                    <th>Protocol</th>
+                                    <th>State</th>
+                                    <th>Service</th>
+                                    <th>More info</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if host.ports | count > 0 %}
+                                    {% for port in host.ports %}
+                                        <tr>
+                                            <td id="state">
+                                                {% if port.state == 'open'%}
+                                                    <div class="green"></div>
+                                                {% else %}
+                                                    <div class="red"></div>
+                                                {% endif %}
+                                            </td>
+                                            <td>{{ port.port }}</td>
+                                            <td>{{ port.protocol }}</td>
+                                            <td>{{ port.state }}</td>
+                                            <td>{{ port.service.name }}</td>
+                                            <td>{{ port.service.product }} {{ port.service.version }} {% if port.service.extrainfo %}({{ port.service.extrainfo }}){% endif %}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% else %}
+                                    <tr>
+                                        <td>
+                                            <div class="inactive"></div>
+                                        </td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                        <td>N/A</td>
+                                    </tr>
+                                {% endif %}
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</body>
+</html>
