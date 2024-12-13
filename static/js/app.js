@@ -2,11 +2,19 @@ const form = document.getElementById("upload-form");
 const uploadedFiles = document.getElementById('uploaded-files');
 const btnDelete = document.querySelectorAll('.delete')
 
+const inputFile = document.getElementById("file")
+const fileLabel = document.getElementById("file-label");
+
 const BASE_URL = window.location.origin
+
+
+inputFile.addEventListener("change", (e)=> {
+    fileLabel.innerHTML = e.target.files[0].name
+})
 
 form.addEventListener("submit",(e)=> {
     e.preventDefault()
-    const inputFile = document.getElementById("file")
+    
     const file = inputFile.files[0]
 
     const formData = new FormData()

@@ -3,24 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <title>Index</title>
+    <title>Nmapper - Inicio</title>
 </head>
-<body>
-    <div id="app">
-        <div class="upload">
-            <h2>Upload XML</h2>
-            <form id="upload-form">
-                <input type="file" accept="text/xml" name="file" id="file">
-                <button id="send">Send</button>
+<body class="flex justify-center h-screen bg-gray-100">
+    <div id="app" class="container py-5">
+        <div class="upload w-full space-y-5">
+            <h2 class="text-4xl font-bold">Upload XML</h2>
+            <form id="upload-form" class="flex space-x-5 items-center">
+                <label for="file" class="flex space-x-2 items-center">
+                    <span>File</span>
+                    <div id="file-label" class="py-2 px-4 bg-gray-200 font-bold rounded cursor-pointer">
+                        Selecciona un archivo
+                    </div>
+                </label>
+                <input type="file" accept="text/xml" name="file" id="file" class="hidden">
+                <button id="send" class="py-2 px-4 bg-emerald-500 font-bold rounded text-white">Send</button>
             </form>
         </div>
-        <div class="uploaded-files" id="uploaded-files">
+        <div class="uploaded-files w-full max-w-[500px] py-5 space-y-2" id="uploaded-files">
             {% for file in files  %}
-            <div class="file-url">
+            <div class="file-url flex py-2 px-4 bg-gray-200 rounded items-center justify-between hover:cursor-pointer">
                 <div class="file-body">
-                    <a href="{{ url_for('nmapper', filename=file) }}" class="link-file">
+                    <a href="{{ url_for('nmapper', filename=file) }}" class="link-file font-bold hover:text-emerald-500">
                         {{ file }}
                     </a>
                 </div>
