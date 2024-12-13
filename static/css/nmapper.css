@@ -9,6 +9,8 @@
 
 .container{
     width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
     padding: 10px;
 }
 
@@ -62,6 +64,11 @@ table td{
     background-color: #999797;
 }
 
+.data:hover{
+    cursor: pointer;
+    background: rgba(0,0,0, 0.1);
+}
+
 .btn-link{
     text-decoration: none;
 }
@@ -79,4 +86,8 @@ table td{
     background-color: #0d6efd;
     margin-bottom: 10px;
     border-radius: 10px;
+}
+
+.hidden{
+    display: none;
 }

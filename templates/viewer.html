@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nmapper.css') }}">
     <title>Nmapper</title>
+    <script src="{{ url_for('static', filename='js/csvmaker.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/download.js') }}"></script>
 </head>
 <body>
     <div class="container">
@@ -12,15 +14,50 @@
             <button class="btn btn-success">Go to the index page</button>
         </a>
         <div class="scann">
-            <p> {{ data.scann }} </p>
+
+            <input type="text" readonly value="{{ data.scann }}">
             <br>
+            <p>Total Hosts: {{ data.hosts | count }}</p>
+            <p>Open ports: {{ request.args.get('openPorts') }}</p>
+            <input type="hidden" id="targetsHidden" readonly value="{{ data.targets }}" />
+            <form>
+                <div>
+                    <input type="checkbox" name="openPorts" id="openPorts">
+                    <label for="openPorts">Filtrar IPs por puertos abiertos</label>
+                </div>
+                <div>
+                    <input type="checkbox" name="domainNames" id="domainNames">
+                    <label for="domainNames">Filtrar IPs por nombres de dominio</label>
+                </div>
+                <button type="submit">Filtrar</button>
+
+            </form>
+            <div>
+                <button id="download">
+                    Descargar CSV
+                </button>
+                <button id="all-tables">
+                    Mostrar todas las tablas
+                </button>
+            </div>
         </div>
         <div class="container-host">
             {% for host in data.hosts %}
                 <div class="host-container">
                     <h3 class="address">{{ host.address }}</h3>
                     <p class="hostname">{{ host.hostname }}</p>
-                    <div class="table">
+                    <p class="count-ports">Total ports: {{ host.ports | count }}</p>
+                    <p class="up-ports">Up ports: {{ host.up_ports }}</p>
+                    <p class="down-ports">Down ports: {{ host.down_ports }}</p>
+                    <div class="buttons-tbl">
+                        <button class="show-table" aria-data-table="{{ host.address }}">
+                            Mostrar tabla
+                        </button>
+                        <button class="hidde-table" aria-data-table="{{ host.address }}">
+                            Ocultar tabla
+                        </button>
+                    </div>
+                    <div class="table hidden" aria-data-table="{{ host.address }}">
                         <table>
                             <thead>
                                 <tr>
@@ -35,7 +72,7 @@
                             <tbody>
                                 {% if host.ports | count > 0 %}
                                     {% for port in host.ports %}
-                                        <tr>
+                                        <tr class="data" aria-data-port="{{ port.port }} / {{ port.protocol }} / {{ port.service.name }} / {{ port.service.product }} {{ port.service.version }} {% if port.service.extrainfo %}({{ port.service.extrainfo }}){% endif %}">
                                             <td id="state">
                                                 {% if port.state == 'open'%}
                                                     <div class="green"></div>
@@ -69,5 +106,64 @@
         </div>
 
     </div>
+
+
+
+    <script>
+        document.addEventListener("copy", ()=> {
+            let selectedText = document.getSelection()
+            navigator.clipboard.writeText(selectedText.toString())
+        })
+
+        const th = document.querySelectorAll('.data')
+        th.forEach((el) => {
+            el.addEventListener('click', () => {
+                let data = el.getAttribute('aria-data-port')
+                navigator.clipboard.writeText(data)
+            })
+        })
+
+        const showTable = document.querySelectorAll('.show-table')
+        const hiddeTable = document.querySelectorAll('.hidde-table')
+
+        showTable.forEach((el) => {
+            el.addEventListener('click', () => {
+                let data = el.getAttribute('aria-data-table')
+                let table = document.querySelector(`[aria-data-table="${data}"].table`)
+                table.classList.remove('hidden')
+            })
+        })
+
+        hiddeTable.forEach((el) => {
+            el.addEventListener('click', () => {
+                let data = el.getAttribute('aria-data-table')
+                let table = document.querySelector(`[aria-data-table="${data}"].table`)
+                table.classList.add('hidden')
+            })
+        })
+
+
+        const downloadBtn = document.getElementById('download')
+
+        downloadBtn.addEventListener('click', () => {
+            const targets = document.getElementById('targetsHidden').value.replaceAll("'", '"').replaceAll("None", "null")
+            const targetsJson = JSON.parse(targets)
+            const csv = csvmaker(targetsJson)
+            const filename = prompt("Ingrese un nombre para el archivo CSV")
+            download(csv, filename)
+        })
+
+        const allTables = document.querySelector('#all-tables')
+        allTables.addEventListener('click', () => {
+            const tables = document.querySelectorAll('.table')
+            tables.forEach((el) => {
+                el.classList.remove('hidden')
+            })
+        })
+
+
+
+
+    </script>
 </body>
 </html>

@@ -1,2 +1,6 @@
 ./temp/
+.vscode/
+.idea/
+# Ignore all files in the uploads directory
+uploads/*
 nmapper.py

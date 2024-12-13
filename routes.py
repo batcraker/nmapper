@@ -24,7 +24,19 @@ def __nmapper__():
 @api.route("/api/nmapper/<filename>", methods=["GET"])
 def _parser_(filename):
     nmapper = Nmapper(f'./uploads/{filename}')
-    parsed_json = nmapper.parser_to_json()
+    nmapper.parser_to_json()
+
+    getWithOpenPorts = request.args.get('openPorts')
+    getWithDomainName = request.args.get('domainNames')
+
+    if getWithOpenPorts:
+        nmapper.get_by_up_ports()
+    if getWithDomainName:
+        nmapper.get_by_hostname()
+
+    parsed_json = nmapper.get_data()
+
+
     return jsonify(parsed_json)
 
 @api.route("/api/<filename>", methods=["DELETE"])

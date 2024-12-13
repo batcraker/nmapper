@@ -1,7 +1,7 @@
 from tools.Nmapper import Nmapper
 import json
 from tools.Server import Server
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
 from routes import api
 import os
 import requests
@@ -21,16 +21,24 @@ def home():
 
 @app.app.route("/file/<filename>")
 def nmapper(filename):
-    response = requests.get(f"http://localhost:3000/api/nmapper/{filename}")
+    uri = f"http://localhost:3000/api/nmapper/{filename}?"
+    # Get args from response
+    getWithOpenPorts = request.args.get('openPorts')
+    getWithDomainName = request.args.get('domainNames')
+    if getWithOpenPorts:
+        uri += f"openPorts={getWithOpenPorts}&"
+    if getWithDomainName:
+        uri += f"domainNames={getWithDomainName}&"
+
+    response = requests.get(f"{uri}")
     response_json = response.json()
+
     return render_template("viewer.html", file=filename, data=response_json)
 
     
 #register the blueprint
 app.app.register_blueprint(api)
 
-nmapper = Nmapper('./uploads/LAB_EXPERIMENTAL_NMAP.xml')
-
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)
