@@ -7,6 +7,16 @@ const fileLabel = document.getElementById("file-label");
 
 const BASE_URL = window.location.origin
 
+function alertSuccess(message){
+    Swal.fire({
+        toast: true,
+        position: 'top-end',
+        icon: 'success',
+        title: message,
+        showConfirmButton: false,
+        timer: 3000
+    })
+}
 
 inputFile.addEventListener("change", (e)=> {
     fileLabel.innerHTML = e.target.files[0].name
@@ -15,25 +25,12 @@ inputFile.addEventListener("change", (e)=> {
 form.addEventListener("submit",(e)=> {
     e.preventDefault()
     
-    const file = inputFile.files[0]
-
-    const formData = new FormData()
-    formData.append('file',file)
-
-    fetch(`${BASE_URL}/api/nmapper`,{
-        method:"POST",
-        body: formData
-    }).then(res => res.json())
-    .then(res => {
-        alert(res.message)
-        form.reset()
-        window.location.reload()
-        
-    })
-    .catch(err => {
-        alert("No se ha podido cargar el archivo") 
-    })
+    if(inputFile.files.length === 0){
+        alert("Selecciona un archivo")
+        return
+    }
     
+    form.submit()
 })
 
 for(let i=0; i<btnDelete.length; i++){
@@ -43,21 +40,17 @@ for(let i=0; i<btnDelete.length; i++){
             let fileId = btnDelete[i].getAttribute("data-fileid")
             
 
-            fetch(`${BASE_URL}/api/${fileId}`, {
+            fetch(`${BASE_URL}/nmapper/file/${fileId}`, {
                 method:"DELETE"
             })
                 .then(res => res.json())
                 .then(res => {
-                    alert("Eliminado")
-                    window.location.reload()
+                    alertSuccess("Archivo eliminado")
+                    setTimeout(() => window.location.reload(), 3000)
                 })
                 .catch(err => {
                     console.log(err);
                 })
-
-
-        }else{
-            return
         }
 
     })

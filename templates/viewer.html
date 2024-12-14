@@ -1,164 +1,290 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nmapper.css') }}">
-    <title>Nmapper</title>
-    <script src="{{ url_for('static', filename='js/csvmaker.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/download.js') }}"></script>
-</head>
-<body>
-    <div class="container">
-        <a href="/" class="btn-link">
-            <button class="btn btn-success">Go to the index page</button>
-        </a>
-        <div class="scann">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+        <title>Nmapper - {{ file }}</title>
+        <script src="{{ url_for('static', filename='js/csvmaker.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/download.js') }}"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <script>
+            tailwind.config = {
+              theme: {
+                extend: {
+                  fontFamily: {
+                    sans: ['montserrat','sans-serif'],
+                  },
+                }
+              }
+            }
+        </script>
+    </head>
+    <body class="flex justify-center h-screen bg-gray-100">
+        <div class="container py-5 space-y-5">
+            <header class="w-full mb-5">
+                <a
+                    href="/"
+                    class="btn-link px-4 py-2 bg-emerald-500 text-white rounded font-bold"
+                >
+                    Go to the index page
+                </a>
+            </header>
+            <div class="scann w-full space-y-5">
+                <input
+                    type="text"
+                    readonly
+                    value="{{ data.scann }}"
+                    class="w-full bg-gray-200 p-2 rounded mb-5 focus:outline-1 focus:outline-emerald-500"
+                />
+                <br />
+                <span>
+                    <span class="flex gap-2">
+                        <p class="font-bold">Total Hosts:</p>
+                        <p>{{ data.hosts | count }}</p>
+                    </span>
+                </span>
+                <input
+                    type="hidden"
+                    id="targetsHidden"
+                    readonly
+                    value="{{ data.targets }}"
+                />
+                <form class="flex flex-col gap-1">
+                    <!-- Filtrar por IP con puertos abiertos -->
+                    <div class="inline-flex items-center gap-4">
+                        <label
+                            class="flex items-center cursor-pointer relative"
+                        >
+                            <input
+                                type="checkbox"
+                                class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-emerald-600 checked:border-emerald-600"
+                                id="openPorts"
+                                name="openPorts"
+                            />
+                            <span
+                                class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    stroke="currentColor"
+                                    stroke-width="1"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd"
+                                    ></path>
+                                </svg>
+                            </span>
+                        </label>
+                        <label for="openPorts"
+                            >Filtrar IPs por puertos abiertos</label
+                        >
+                    </div>
+                    <!-- Filtrar por puertos abiertos -->
+                    <div class="inline-flex items-center gap-4">
+                        <label
+                            class="flex items-center cursor-pointer relative"
+                        >
+                            <input
+                                type="checkbox"
+                                class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-emerald-600 checked:border-emerald-600"
+                                id="domainNames"
+                                name="domainNames"
+                            />
+                            <span
+                                class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                            >
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="h-3.5 w-3.5"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    stroke="currentColor"
+                                    stroke-width="1"
+                                >
+                                    <path
+                                        fill-rule="evenodd"
+                                        d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                        clip-rule="evenodd"
+                                    ></path>
+                                </svg>
+                            </span>
+                        </label>
+                        <label for="domainNames">Filtrar IPs por nombres de dominio</label>
+                    </div>
+                    <div>
+                        <button type="submit" class="px-3 py-1 font-bold bg-emerald-500 rounded text-white">Filtrar</button>
+                    </div>
 
-            <input type="text" readonly value="{{ data.scann }}">
-            <br>
-            <p>Total Hosts: {{ data.hosts | count }}</p>
-            <p>Open ports: {{ request.args.get('openPorts') }}</p>
-            <input type="hidden" id="targetsHidden" readonly value="{{ data.targets }}" />
-            <form>
-                <div>
-                    <input type="checkbox" name="openPorts" id="openPorts">
-                    <label for="openPorts">Filtrar IPs por puertos abiertos</label>
-                </div>
-                <div>
-                    <input type="checkbox" name="domainNames" id="domainNames">
-                    <label for="domainNames">Filtrar IPs por nombres de dominio</label>
-                </div>
-                <button type="submit">Filtrar</button>
+                </form>
+                <div class="flex gap-2">
+                    <button id="download" class="px-2 py-1 cursor-pointer font-bold rounded border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white hover:transition hover:duration-500 active:scale-95">Descargar CSV</button>
+                    <button id="show-all-tables" class="px-2 py-1 cursor-pointer font-bold rounded border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white hover:transition hover:duration-500 active:scale-95">Mostrar todas las tablas</button>
+                    <button id="hidde-all-tables" class="px-2 py-1 cursor-pointer font-bold rounded border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white hover:transition hover:duration-500 active:scale-95">Ocultar todas las tablas</button>
 
-            </form>
-            <div>
-                <button id="download">
-                    Descargar CSV
-                </button>
-                <button id="all-tables">
-                    Mostrar todas las tablas
-                </button>
+                </div>
             </div>
-        </div>
-        <div class="container-host">
-            {% for host in data.hosts %}
-                <div class="host-container">
-                    <h3 class="address">{{ host.address }}</h3>
-                    <p class="hostname">{{ host.hostname }}</p>
-                    <p class="count-ports">Total ports: {{ host.ports | count }}</p>
-                    <p class="up-ports">Up ports: {{ host.up_ports }}</p>
-                    <p class="down-ports">Down ports: {{ host.down_ports }}</p>
-                    <div class="buttons-tbl">
-                        <button class="show-table" aria-data-table="{{ host.address }}">
+            <div class="container-host w-full flex flex-col gap-5">
+                {% for host in data.hosts %}
+                <div class="host-container p-10 bg-white rounded-lg shadow-lg w-full max-w-2xl">
+                    <h3 class="address text-xl font-bold">{{ host.address }}</h3>
+                    <p class="hostname text-lg">{{ host.hostname }}</p>
+                    <span class="count-ports flex gap-2 text-sm">
+                        <p class="font-bold">Total ports</p>
+                        <p>{{ host.ports | count }}</p>
+                    </span>
+                    <span class="up-ports flex gap-2 text-sm">
+                        <p class="font-bold">Up ports:</p>
+                        <p>{{ host.up_ports }}</p>
+                    </span>
+                    <span class="down-ports flex gap-2 text-sm">
+                        <p class="font-bold">Down ports: </p>
+                        <p>{{ host.down_ports }}</p>
+                    </span>
+                    <div class="buttons-tbl my-2 space-x-2">
+                        <button
+                            class="show-table px-1 py-2 rounded cursor-pointer bg-blue-500 text-white active:scale-95 scale-100"
+                            aria-data-table="{{ host.address }}"
+                        >
                             Mostrar tabla
                         </button>
-                        <button class="hidde-table" aria-data-table="{{ host.address }}">
+                        <button
+                            class="hidde-table px-1 py-2 rounded cursor-pointer bg-red-500 text-white active:scale-95 scale-100"
+                            aria-data-table="{{ host.address }}"
+                        >
                             Ocultar tabla
                         </button>
                     </div>
                     <div class="table hidden" aria-data-table="{{ host.address }}">
-                        <table>
+                        <table class="w-full table-auto border border-collapse border-gray-300">
                             <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Port</th>
-                                    <th>Protocol</th>
-                                    <th>State</th>
-                                    <th>Service</th>
-                                    <th>More info</th>
+                                <tr class="bg-gray-200">
+                                    <th class="px-2 py-3 border border-gray-500">Status</th>
+                                    <th class="px-2 py-3 border border-gray-500">Port</th>
+                                    <th class="px-2 py-3 border border-gray-500">Protocol</th>
+                                    <th class="px-2 py-3 border border-gray-500">State</th>
+                                    <th class="px-2 py-3 border border-gray-500">Service</th>
+                                    <th class="px-2 py-3 border border-gray-500">More info</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {% if host.ports | count > 0 %}
-                                    {% for port in host.ports %}
-                                        <tr class="data" aria-data-port="{{ port.port }} / {{ port.protocol }} / {{ port.service.name }} / {{ port.service.product }} {{ port.service.version }} {% if port.service.extrainfo %}({{ port.service.extrainfo }}){% endif %}">
-                                            <td id="state">
-                                                {% if port.state == 'open'%}
-                                                    <div class="green"></div>
-                                                {% else %}
-                                                    <div class="red"></div>
-                                                {% endif %}
-                                            </td>
-                                            <td>{{ port.port }}</td>
-                                            <td>{{ port.protocol }}</td>
-                                            <td>{{ port.state }}</td>
-                                            <td>{{ port.service.name }}</td>
-                                            <td>{{ port.service.product }} {{ port.service.version }} {% if port.service.extrainfo %}({{ port.service.extrainfo }}){% endif %}</td>
-                                        </tr>
-                                    {% endfor %}
-                                {% else %}
-                                    <tr>
-                                        <td>
-                                            <div class="inactive"></div>
-                                        </td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                        <td>N/A</td>
-                                    </tr>
+                                {% if host.ports | count > 0 %} {% for port in
+                                host.ports %}
+                                <tr
+                                    class="data hover:cursor-pointer hover:bg-gray-100"
+                                    aria-data-port="{{ port.port }} / {{ port.protocol }} / {{ port.service.name }} / {{ port.service.product }} {{ port.service.version }} {% if port.service.extrainfo %}({{ port.service.extrainfo }}){% endif %}"
+                                >
+                                    <td id="state" class="border border-gray-500">
+                                        <div class="h-full flex items-center justify-center">
+                                            {% if port.state == 'open'%}
+                                            <div id="green" class="w-[10px] h-[10px] bg-green-600 rounded-full"></div>
+                                            {% else %}
+                                            <div id="red" class="w-[10px] h-[10px] bg-red-600 rounded-full"></div>
+                                            {% endif %}
+                                        </div>
+                                    </td>
+                                    <td class=" px-2 py-3 border border-gray-500 text-center">{{ port.port }}</td>
+                                    <td class=" px-2 py-3 border border-gray-500 text-center">{{ port.protocol }}</td>
+                                    <td class=" px-2 py-3 border border-gray-500 text-center">{{ port.state }}</td>
+                                    <td class=" px-2 py-3 border border-gray-500 text-center">{{ port.service.name }}</td>
+                                    <td class=" px-2 py-3 border border-gray-500 text-center">
+                                        {{ port.service.product }} {{
+                                        port.service.version }} {% if
+                                        port.service.extrainfo %}({{
+                                        port.service.extrainfo }}){% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %} {% else %}
+                                <tr>
+                                    <td>
+                                        <div class="inactive"></div>
+                                    </td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                    <td>N/A</td>
+                                </tr>
                                 {% endif %}
-                                
                             </tbody>
                         </table>
                     </div>
                 </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
 
-    </div>
+        <script>
+            document.addEventListener("copy", () => {
+                let selectedText = document.getSelection();
+                navigator.clipboard.writeText(selectedText.toString());
+            });
 
+            const th = document.querySelectorAll(".data");
+            th.forEach((el) => {
+                el.addEventListener("click", () => {
+                    let data = el.getAttribute("aria-data-port");
+                    navigator.clipboard.writeText(data);
+                });
+            });
 
+            const showTableBtn = document.querySelectorAll(".show-table");
+            const hiddeTableBtn = document.querySelectorAll(".hidde-table");
 
-    <script>
-        document.addEventListener("copy", ()=> {
-            let selectedText = document.getSelection()
-            navigator.clipboard.writeText(selectedText.toString())
-        })
-
-        const th = document.querySelectorAll('.data')
-        th.forEach((el) => {
-            el.addEventListener('click', () => {
-                let data = el.getAttribute('aria-data-port')
-                navigator.clipboard.writeText(data)
+            showTableBtn.forEach((el) => {
+                el.addEventListener("click", (e) => {
+                    // Get parent
+                    let parent = e.target.parentElement.parentElement;
+                    parent.querySelector(".table").classList.remove("hidden");
+                    
+                    
+                });
             })
-        })
+            
+            hiddeTableBtn.forEach((el) => {
+                el.addEventListener("click", (e) => {
+                    // Get parent
+                    let parent = e.target.parentElement.parentElement;
+                    parent.querySelector(".table").classList.add("hidden");
+                });
+            });
 
-        const showTable = document.querySelectorAll('.show-table')
-        const hiddeTable = document.querySelectorAll('.hidde-table')
+            // Download Function
+            const downloadBtn = document.getElementById("download");
+            downloadBtn.addEventListener("click", () => {
+                const targets = document
+                    .getElementById("targetsHidden")
+                    .value.replaceAll("'", '"')
+                    .replaceAll("None", "null");
+                const targetsJson = JSON.parse(targets);
+                const csv = csvmaker(targetsJson);
+                const filename = prompt(
+                    "Ingrese un nombre para el archivo CSV"
+                );
+                download(csv, filename);
+            });
 
-        showTable.forEach((el) => {
-            el.addEventListener('click', () => {
-                let data = el.getAttribute('aria-data-table')
-                let table = document.querySelector(`[aria-data-table="${data}"].table`)
-                table.classList.remove('hidden')
-            })
-        })
+            const allTablesBtn = document.querySelector("#show-all-tables");
+            allTablesBtn.addEventListener("click", () => {
+                const tables = document.querySelectorAll(".table");
+                tables.forEach((el) => {
+                    el.classList.remove("hidden");
+                });
+            });
 
-        hiddeTable.forEach((el) => {
-            el.addEventListener('click', () => {
-                let data = el.getAttribute('aria-data-table')
-                let table = document.querySelector(`[aria-data-table="${data}"].table`)
-                table.classList.add('hidden')
-            })
-        })
+            const hiddeAllTablesBtn = document.querySelector("#hidde-all-tables");
+            hiddeAllTablesBtn.addEventListener("click", () => {
+                const tables = document.querySelectorAll(".table");
+                tables.forEach((el) => {
+                    el.classList.add("hidden");
+                });
+            });
 
-        const downloadBtn = document.getElementById('download')
-        downloadBtn.addEventListener('click', () => {
-            const targets = document.getElementById('targetsHidden').value.replaceAll("'", '"').replaceAll("None", "null")
-            const targetsJson = JSON.parse(targets)
-            const csv = csvmaker(targetsJson)
-            const filename = prompt("Ingrese un nombre para el archivo CSV")
-            download(csv, filename)
-        })
-
-        const allTables = document.querySelector('#all-tables')
-        allTables.addEventListener('click', () => {
-            const tables = document.querySelectorAll('.table')
-            tables.forEach((el) => {
-                el.classList.remove('hidden')
-            })
-        })
-
-    </script>
-</body>
+        </script>
+    </body>
 </html>

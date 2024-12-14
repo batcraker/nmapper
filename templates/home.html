@@ -3,16 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.0/dist/sweetalert2.all.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.15.0/dist/sweetalert2.min.css">
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              fontFamily: {
+                sans: ['montserrat','sans-serif'],
+              },
+            }
+          }
+        }
+    </script>
     <title>Nmapper - Inicio</title>
 </head>
 <body class="flex justify-center h-screen bg-gray-100">
     <div id="app" class="container py-5">
         <div class="upload w-full space-y-5">
             <h2 class="text-4xl font-bold">Upload XML</h2>
-            <form id="upload-form" class="flex space-x-5 items-center">
+            <form action="{{ url_for('nmapper_bp.upload_file') }}" id="upload-form" method="POST" enctype="multipart/form-data" class="flex space-x-5 items-center">
                 <label for="file" class="flex space-x-2 items-center">
                     <span>File</span>
                     <div id="file-label" class="py-2 px-4 bg-gray-200 font-bold rounded cursor-pointer">
@@ -27,7 +42,7 @@
             {% for file in files  %}
             <div class="file-url flex py-2 px-4 bg-gray-200 rounded items-center justify-between hover:cursor-pointer">
                 <div class="file-body">
-                    <a href="{{ url_for('nmapper', filename=file) }}" class="link-file font-bold hover:text-emerald-500">
+                    <a href="{{ url_for('nmapper_bp.nmapper', filename=file) }}" class="link-file font-bold hover:text-emerald-500">
                         {{ file }}
                     </a>
                 </div>
