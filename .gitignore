@@ -3,4 +3,10 @@
 .idea/
 # Ignore all files in the uploads directory
 uploads/*
+src/uploads/*
+
+#temp folder
+temp/*
+src/temp/*
+
 nmapper.py

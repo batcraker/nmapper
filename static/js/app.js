@@ -22,16 +22,16 @@ inputFile.addEventListener("change", (e)=> {
     fileLabel.innerHTML = e.target.files[0].name
 })
 
-form.addEventListener("submit",(e)=> {
-    e.preventDefault()
+// form.addEventListener("submit",(e)=> {
+//     e.preventDefault()
     
-    if(inputFile.files.length === 0){
-        alert("Selecciona un archivo")
-        return
-    }
+//     if(inputFile.files.length === 0){
+//         alert("Selecciona un archivo")
+//         return
+//     }
     
-    form.submit()
-})
+//     form.submit()
+// })
 
 for(let i=0; i<btnDelete.length; i++){
     btnDelete[i].addEventListener("click", ()=> {
@@ -45,8 +45,7 @@ for(let i=0; i<btnDelete.length; i++){
             })
                 .then(res => res.json())
                 .then(res => {
-                    alertSuccess("Archivo eliminado")
-                    setTimeout(() => window.location.reload(), 3000)
+                    window.location.reload()
                 })
                 .catch(err => {
                     console.log(err);
