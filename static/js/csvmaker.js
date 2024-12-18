@@ -2,18 +2,17 @@
  *
  * @param data:Array
  */
-function csvmaker(data){
+function csvmaker(data, headers=["Dirección IP", "Nombre de Host"]){
 
     const csvRows = []
 
     // get the headers
-    const headers = ["IP", "Hostname"]
     csvRows.push(headers.join(','))
 
     for (const row of data){
         const values = Object.values(row).join(',')
         csvRows.push(values)
     }
-
+    
     return csvRows.join('\n')
 }

@@ -63,6 +63,8 @@
                                 class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-emerald-600 checked:border-emerald-600"
                                 id="openPorts"
                                 name="openPorts"
+                                value="true"
+                                {% if request.args.get('openPorts') and request.args.get('openPorts') == 'true' %}checked{% endif %}
                             />
                             <span
                                 class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
@@ -97,6 +99,8 @@
                                 class="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-emerald-600 checked:border-emerald-600"
                                 id="domainNames"
                                 name="domainNames"
+                                value="true"
+                                {% if request.args.get('domainNames') and request.args.get('domainNames') == 'true' %}checked{% endif %}
                             />
                             <span
                                 class="absolute text-white opacity-0 peer-checked:opacity-100 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
@@ -124,11 +128,12 @@
                     </div>
 
                 </form>
+
                 <div class="flex gap-2">
                     <button id="download" class="px-2 py-1 cursor-pointer font-bold rounded border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white hover:transition hover:duration-500 active:scale-95">Descargar CSV</button>
                     <button id="show-all-tables" class="px-2 py-1 cursor-pointer font-bold rounded border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white hover:transition hover:duration-500 active:scale-95">Mostrar todas las tablas</button>
                     <button id="hidde-all-tables" class="px-2 py-1 cursor-pointer font-bold rounded border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white hover:transition hover:duration-500 active:scale-95">Ocultar todas las tablas</button>
-                    <a href="{{ url_for('nmapper_bp.make_word_file', filename=file) }}" target="_blank">
+                    <a href="{{ url_for('nmapper_bp.make_word_file', filename=file, openPorts=request.args.get('openPorts')) }}" target="_blank">
                         <button id="download-word" class="px-2 py-1 cursor-pointer font-bold rounded border border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white hover:transition hover:duration-500 active:scale-95">Descargar Word</button>
                     </a>
                 </div>
